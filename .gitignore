@@ -40,13 +40,3 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-
-
-# Personal configs
-.prettierrc
-.prettierignore
-eslint.config.mjs
-.editorconfig
-tsconfig.spec.json
-tsconfig.json
-tsconfig.app.json
