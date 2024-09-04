@@ -1,1 +1,97 @@
-<p>new-hero-page works!</p>
+<h1>
+	{{ (currentHero.id ? "Edit" : "Add") + " Hero" }}
+	<small *ngIf="currentHero.id">
+		{{ " / " + currentHero.superhero | titlecase }}
+	</small>
+</h1>
+
+<mat-divider class="mb-2"></mat-divider>
+
+<form class="grid" [formGroup]="heroForm">
+	<div class="col-12 sm:col-6">
+		<mat-card>
+			<mat-card-content>
+				<div class="grid">
+					<mat-form-field class="col-12 sm:col-6">
+						<mat-label>Superhero</mat-label>
+						<input matInput type="text" required formControlName="superhero" />
+					</mat-form-field>
+
+					<mat-form-field class="col-12 sm:col-6">
+						<mat-label>Alter ego</mat-label>
+						<input matInput type="text" required formControlName="alter_ego" />
+					</mat-form-field>
+
+					<mat-form-field class="col-12">
+						<mat-label>First appearance</mat-label>
+						<input
+							matInput
+							type="text"
+							required
+							formControlName="first_appearance"
+						/>
+					</mat-form-field>
+
+					<mat-form-field class="col-12">
+						<mat-label>Characters</mat-label>
+						<input matInput type="text" required formControlName="characters" />
+					</mat-form-field>
+
+					<mat-form-field class="col-12">
+						<mat-label>Image URL</mat-label>
+						<input matInput type="text" required formControlName="alt_img" />
+					</mat-form-field>
+
+					<mat-form-field class="col-12">
+						<mat-label>Publisher</mat-label>
+						<mat-select required formControlName="publisher">
+							<mat-option
+								*ngFor="let publisher of publishers"
+								[value]="publisher.id"
+							>
+								{{ publisher.name }}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+
+					<div class="flex justify-content-between w-full">
+						<button
+							mat-flat-button
+							color="warn"
+							class="ml-2"
+							*ngIf="currentHero.id"
+							(click)="onDeleteHero()"
+						>
+							<mat-icon>delete</mat-icon>
+							Delete
+						</button>
+
+						<span></span>
+
+						<button
+							mat-flat-button
+							color="primary"
+							class="mr-2"
+							(click)="onSubmit()"
+						>
+							<mat-icon>save</mat-icon>
+							{{ currentHero.id ? "Update" : "Create" }}
+						</button>
+					</div>
+				</div>
+			</mat-card-content>
+		</mat-card>
+	</div>
+
+	<div class="col-12 sm:col-6">
+		<mat-card>
+			<img
+				[ngSrc]="currentHero | heroImage"
+				mat-card-image
+				fill
+				class="relative"
+				alt="Hero Image"
+			/>
+		</mat-card>
+	</div>
+</form>
